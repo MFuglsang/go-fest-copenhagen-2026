@@ -1,50 +1,34 @@
 <template>
   <div class="layer-switcher">
-    <div class="layer-toggle-group">
-      <button
-        class="layer-toggle"
-        :class="{ active: showPoi }"
-        @click="togglePoi"
-        :title="showPoi ? 'POI Tændt' : 'POI Slukket'"
-      >
-        <span class="toggle-text">{{ showPoi ? 'POI' : 'POI' }}</span>
-        <span class="toggle-indicator" :class="{ on: !showPoi }"></span>
-      </button>
-    </div>
-    <div class="layer-toggle-group">
-      <button
-        class="layer-toggle"
-        :class="{ active: showZones }"
-        @click="toggleZones"
-        :title="showZones ? 'Zoner Tændt' : 'Zoner Slukket'"
-      >
-        <span class="toggle-text">{{ showZones ? 'Zoner' : 'Zoner' }}</span>
-        <span class="toggle-indicator" :class="{ on: !showZones }"></span>
-      </button>
-    </div>
+    <button
+      class="layer-toggle"
+      :class="{ active: showPoi }"
+      @click="$emit('update:showPoi', !showPoi)"
+    >
+      <span class="toggle-indicator" :class="{ on: showPoi }"></span>
+      <span class="toggle-text">POI</span>
+    </button>
+    <button
+      class="layer-toggle"
+      :class="{ active: showZones }"
+      @click="$emit('update:showZones', !showZones)"
+    >
+      <span class="toggle-indicator" :class="{ on: showZones }"></span>
+      <span class="toggle-text">Zoner</span>
+    </button>
   </div>
 </template>
 
 <script setup lang="ts">
-import { defineEmits } from 'vue'
-
-const showPoi = defineModel<boolean>('showPoi', { default: true })
-const showZones = defineModel<boolean>('showZones', { default: true })
-
-const emit = defineEmits<{
-  'togglePoi': [show: boolean]
-  'toggleZones': [show: boolean]
+defineProps<{
+  showPoi: boolean
+  showZones: boolean
 }>()
 
-const togglePoi = () => {
-  showPoi.value = !showPoi.value
-  emit('togglePoi', showPoi.value)
-}
-
-const toggleZones = () => {
-  showZones.value = !showZones.value
-  emit('toggleZones', showZones.value)
-}
+defineEmits<{
+  'update:showPoi': [value: boolean]
+  'update:showZones': [value: boolean]
+}>()
 </script>
 
 <style scoped>

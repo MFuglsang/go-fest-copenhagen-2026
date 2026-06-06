@@ -7,8 +7,6 @@
     <LayerSwitcher 
       v-model:showPoi="showPoi" 
       v-model:showZones="showZones"
-      @togglePoi="handlePoiToggle"
-      @toggleZones="handleZonesToggle"
     />
     <button
       class="location-button"
@@ -74,7 +72,7 @@ const mapEl = ref<HTMLElement | null>(null)
 const status = ref<'ready' | 'error'>('ready')
 const errorMessage = ref('')
 const locationLoading = ref(false)
-const showPoi = ref(true)
+const showPoi = ref(false)
 const showZones = ref(true)
 const selectedPoi = ref<Feature | null>(null)
 const selectedZone = ref<Feature | null>(null)
@@ -207,17 +205,13 @@ watch(
   }
 )
 
-const handlePoiToggle = (show: boolean) => {
-  if (poiLayer) {
-    poiLayer.setVisible(show)
-  }
-}
+watch(showPoi, (show) => {
+  if (poiLayer) poiLayer.setVisible(show)
+})
 
-const handleZonesToggle = (show: boolean) => {
-  if (zonesLayer) {
-    zonesLayer.setVisible(show)
-  }
-}
+watch(showZones, (show) => {
+  if (zonesLayer) zonesLayer.setVisible(show)
+})
 
 const handleMapClick = (event: MouseEvent) => {
   if (!map) return
@@ -265,6 +259,7 @@ onMounted(async () => {
     // Load POI layer
     try {
       poiLayer = await createPoiLayer(props.language)
+      poiLayer.setVisible(showPoi.value)
     } catch (error) {
       console.warn('Could not load POI layer:', error)
     }
@@ -272,6 +267,7 @@ onMounted(async () => {
     // Load zones layer
     try {
       zonesLayer = await createZonesLayer(props.language)
+      zonesLayer.setVisible(showZones.value)
     } catch (error) {
       console.warn('Could not load zones layer:', error)
     }
@@ -417,11 +413,12 @@ onUnmounted(() => {
   z-index: 20;
   background: var(--pokemon-black);
   border: 2px solid var(--primary-red);
-  border-radius: 8px;
-  padding: 1rem;
-  max-width: 280px;
+  border-radius: 10px;
+  padding: 1.25rem 1.5rem;
+  min-width: 300px;
+  max-width: 400px;
   color: white;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
   animation: slideUp 0.3s ease-out;
 }
 
@@ -449,23 +446,24 @@ onUnmounted(() => {
 
 .poi-popup__title {
   margin: 0 0 0.5rem 0;
-  font-size: 1.125rem;
+  padding-right: 2rem;
+  font-size: 1.25rem;
   font-weight: 600;
   word-wrap: break-word;
 }
 
 .poi-popup__type {
   margin: 0;
-  font-size: 0.875rem;
+  font-size: 1rem;
   color: var(--gray-light);
   text-transform: capitalize;
 }
 
 .poi-popup__description {
   margin: 0.75rem 0 0 0;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   color: var(--gray-light);
-  line-height: 1.4;
+  line-height: 1.5;
 }
 
 .zone-popup {
@@ -475,11 +473,12 @@ onUnmounted(() => {
   z-index: 20;
   background: var(--pokemon-black);
   border: 2px solid #22BB33;
-  border-radius: 8px;
-  padding: 1rem;
-  max-width: 280px;
+  border-radius: 10px;
+  padding: 1.25rem 1.5rem;
+  min-width: 300px;
+  max-width: 400px;
   color: white;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
   animation: slideUp 0.3s ease-out;
 }
 
@@ -507,14 +506,15 @@ onUnmounted(() => {
 
 .zone-popup__title {
   margin: 0 0 0.5rem 0;
-  font-size: 1.125rem;
+  padding-right: 2rem;
+  font-size: 1.25rem;
   font-weight: 600;
   word-wrap: break-word;
 }
 
 .zone-popup__type {
   margin: 0;
-  font-size: 0.875rem;
+  font-size: 1rem;
   color: var(--gray-light);
   text-transform: capitalize;
 }
