@@ -1,0 +1,23 @@
+{
+"type": "FeatureCollection",
+"name": "poi",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::25832" } },
+"features": [
+{"type":"Feature","properties":{"text":"Christiansborg slot","type":"sightseeing","text_en":"Christiansborg castle","beskrivelse":"","description":""},"geometry":{"type":"Point","coordinates":[725145.854531460208818,6175877.927452232688665]}},
+{"type":"Feature","properties":{"text":"Konens nytorv Metro","type":"metro","text_en":"Konens nytorv Metro","beskrivelse":"","description":""},"geometry":{"type":"Point","coordinates":[725380.847082872292958,6176309.384364506229758]}},
+{"type":"Feature","properties":{"text":"Marmorkirken Metro","type":"metro","text_en":"Marmorkirken Metro","beskrivelse":"","description":""},"geometry":{"type":"Point","coordinates":[725684.366873927763663,6176841.132215502671897]}},
+{"type":"Feature","properties":{"text":"Amalienborg","type":"sightseeing","text_en":"Amalienborg","beskrivelse":"","description":""},"geometry":{"type":"Point","coordinates":[725872.890310032409616,6176767.311026019975543]}},
+{"type":"Feature","properties":{"text":"Operaen","type":"sightseeing","text_en":"The Opera","beskrivelse":"","description":""},"geometry":{"type":"Point","coordinates":[726362.286562275141478,6176562.611632052809]}},
+{"type":"Feature","properties":{"text":"Østerport Station","type":"station","text_en":"Østerport Station","beskrivelse":"","description":""},"geometry":{"type":"Point","coordinates":[725437.315881208167411,6177688.164190541021526]}},
+{"type":"Feature","properties":{"text":"Trianglen Metro","type":"metro","text_en":"Trianglen Metro","beskrivelse":"","description":""},"geometry":{"type":"Point","coordinates":[724703.809719488490373,6178393.141844767145813]}},
+{"type":"Feature","properties":{"text":"Vibenhus runddel Metro","type":"metro","text_en":"Vibenhus runddel Metro","beskrivelse":"","description":""},"geometry":{"type":"Point","coordinates":[723920.893359229899943,6179146.353264235891402]}},
+{"type":"Feature","properties":{"text":"Nørreport Metro","type":"metro","text_en":"Nørreport Metro","beskrivelse":"","description":""},"geometry":{"type":"Point","coordinates":[724507.345358613994904,6176658.196837561205029]}},
+{"type":"Feature","properties":{"text":"Rosenborg ","type":"sightseeing","text_en":"Rosenborg","beskrivelse":"","description":""},"geometry":{"type":"Point","coordinates":[724844.687607003143057,6176882.601489288732409]}},
+{"type":"Feature","properties":{"text":"Nørreport station","type":"station","text_en":"Nørreport station","beskrivelse":"","description":""},"geometry":{"type":"Point","coordinates":[724534.403324483311735,6176617.021672107279301]}},
+{"type":"Feature","properties":{"text":"Tivoli","type":"sightseeing","text_en":"Tivoli","beskrivelse":"","description":""},"geometry":{"type":"Point","coordinates":[724388.231487122946419,6175562.643328191712499]}},
+{"type":"Feature","properties":{"text":"Rådhuspladsen Metro","type":"metro","text_en":"City Hall Square Metro","beskrivelse":"","description":""},"geometry":{"type":"Point","coordinates":[724372.643745916895568,6175838.222828391008079]}},
+{"type":"Feature","properties":{"text":"Hovedbanegården","type":"station","text_en":"Central station","beskrivelse":"","description":""},"geometry":{"type":"Point","coordinates":[724209.119517402490601,6175338.238676459528506]}},
+{"type":"Feature","properties":{"text":"Cardstore CPH ","type":"shop","text_en":"Cardstore CPH ","beskrivelse":"Pokemon kortshop","description":"Pokemon Cardshop"},"geometry":{"type":"Point","coordinates":[724401.760470057372004,6175905.573634751141071]}},
+{"type":"Feature","properties":{"text":"Matraws","type":"shop","text_en":"Matraws","beskrivelse":"Pokemon kortshop","description":"Pokemon Cardshop"},"geometry":{"type":"Point","coordinates":[725182.323963718372397,6176063.80391342099756]}}
+]
+}

@@ -1,0 +1,19 @@
+/* Pokémon GO Color Palette - Dark Red & Black Focus */
+:root {
+  --primary-red: #CC1111;
+  --primary-dark-red: #8B0000;
+  --pokemon-black: #1A1A1A;
+  --gray-light: #F5F5F5;
+  --gray-medium: #E8E8E8;
+  --white: #FFFFFF;
+
+  /* Primary colors */
+  --primary: var(--primary-red);
+  --primary-dark: var(--primary-dark-red);
+  --accent: var(--pokemon-black);
+  --background: var(--white);
+  --surface: var(--white);
+  --text: var(--pokemon-black);
+  --border: var(--gray-medium);
+}
+
