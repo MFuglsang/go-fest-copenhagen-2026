@@ -3,7 +3,7 @@ import vue from '@vitejs/plugin-vue'
 import { fileURLToPath, URL } from 'node:url'
 
 export default defineConfig({
-  base: process.env.VITE_BASE_URL || '/',
+  base: '/go-fest-copenhagen-2026/',
   plugins: [vue()],
   resolve: {
     alias: {

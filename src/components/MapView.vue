@@ -207,41 +207,6 @@ watch(
   }
 )
 
-watch(
-  () => props.language,
-  async (newLanguage) => {
-    // Clear selected features when language changes
-    selectedPoi.value = null
-    selectedZone.value = null
-
-    if (!map) return
-    
-    // Reload POI layer with new language
-    try {
-      if (poiLayer) {
-        map.removeLayer(poiLayer)
-      }
-      poiLayer = await createPoiLayer(newLanguage)
-      map.addLayer(poiLayer)
-      poiLayer.setVisible(showPoi.value)
-    } catch (error) {
-      console.warn('Could not reload POI layer:', error)
-    }
-
-    // Reload zones layer with new language
-    try {
-      if (zonesLayer) {
-        map.removeLayer(zonesLayer)
-      }
-      zonesLayer = await createZonesLayer(newLanguage)
-      map.addLayer(zonesLayer)
-      zonesLayer.setVisible(showZones.value)
-    } catch (error) {
-      console.warn('Could not reload zones layer:', error)
-    }
-  }
-)
-
 const handlePoiToggle = (show: boolean) => {
   if (poiLayer) {
     poiLayer.setVisible(show)

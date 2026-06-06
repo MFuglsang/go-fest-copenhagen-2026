@@ -8,7 +8,8 @@ import GeoJSON from 'ol/format/GeoJSON'
 export async function createZonesLayer(_language: 'da' | 'en'): Promise<VectorLayer> {
   try {
     // Fetch GeoJSON file
-    const response = await fetch('/data/zones.geojson')
+    const baseUrl = import.meta.env.BASE_URL
+    const response = await fetch(baseUrl + 'data/zones.geojson')
     
     if (!response.ok) {
       throw new Error(`Failed to fetch zones data: ${response.status}`)

@@ -18,7 +18,8 @@ const getIconForType = (type: string): string => {
 export async function createPoiLayer(_language: 'da' | 'en'): Promise<VectorLayer<VectorSource>> {
   try {
     // Fetch GeoJSON file
-    const response = await fetch('/data/poi.geojson')
+    const baseUrl = import.meta.env.BASE_URL
+    const response = await fetch(baseUrl + 'data/poi.geojson')
     
     if (!response.ok) {
       throw new Error(`Failed to fetch POI data: ${response.status}`)
