@@ -18,6 +18,16 @@
 {"type":"Feature","properties":{"text":"Rådhuspladsen Metro","type":"metro","text_en":"City Hall Square Metro","beskrivelse":"","description":""},"geometry":{"type":"Point","coordinates":[724372.643745916895568,6175838.222828391008079]}},
 {"type":"Feature","properties":{"text":"Hovedbanegården","type":"station","text_en":"Central station","beskrivelse":"","description":""},"geometry":{"type":"Point","coordinates":[724209.119517402490601,6175338.238676459528506]}},
 {"type":"Feature","properties":{"text":"Cardstore CPH ","type":"shop","text_en":"Cardstore CPH ","beskrivelse":"Pokemon kortshop","description":"Pokemon Cardshop"},"geometry":{"type":"Point","coordinates":[724401.760470057372004,6175905.573634751141071]}},
-{"type":"Feature","properties":{"text":"Matraws","type":"shop","text_en":"Matraws","beskrivelse":"Pokemon kortshop","description":"Pokemon Cardshop"},"geometry":{"type":"Point","coordinates":[725182.323963718372397,6176063.80391342099756]}}
+{"type":"Feature","properties":{"text":"Matraws","type":"shop","text_en":"Matraws","beskrivelse":"Pokemon kortshop","description":"Pokemon Cardshop"},"geometry":{"type":"Point","coordinates":[725182.323963718372397,6176063.80391342099756]}},
+{"type":"Feature","properties":{"text":"Toilet","type":"toilet","text_en":"Toilet","beskrivelse":null,"description":null},"geometry":{"type":"Point","coordinates":[724329.409822189598344,6178175.501684515736997]}},
+{"type":"Feature","properties":{"text":"Toilet","type":"toilet","text_en":"Toilet","beskrivelse":"Handicap toilet","description":"Handicap toilet"},"geometry":{"type":"Point","coordinates":[724534.697432806249708,6178471.889348695985973]}},
+{"type":"Feature","properties":{"text":"Toilet","type":"toilet","text_en":"Toilet","beskrivelse":null,"description":null},"geometry":{"type":"Point","coordinates":[723848.101548885577358,6178329.540919561870396]}},
+{"type":"Feature","properties":{"text":"Toilet","type":"toilet","text_en":"Toilet","beskrivelse":null,"description":null},"geometry":{"type":"Point","coordinates":[723950.892408354557119,6178494.903325102292001]}},
+{"type":"Feature","properties":{"text":"Toilet","type":"toilet","text_en":"Toilet","beskrivelse":"Handicap toilet","description":"Handicap toilet"},"geometry":{"type":"Point","coordinates":[724031.03692682471592,6178529.608107411302626]}},
+{"type":"Feature","properties":{"text":"Toilet","type":"toilet","text_en":"Toilet","beskrivelse":null,"description":null},"geometry":{"type":"Point","coordinates":[724342.840561942663044,6178824.335177769884467]}},
+{"type":"Feature","properties":{"text":"Toilet","type":"toilet","text_en":"Toilet","beskrivelse":"Handicap toilet","description":"Handicap toilet"},"geometry":{"type":"Point","coordinates":[723979.400034371647052,6179002.313337524421513]}},
+{"type":"Feature","properties":{"text":"Toilet","type":"toilet","text_en":"Toilet","beskrivelse":null,"description":null},"geometry":{"type":"Point","coordinates":[723917.522776792058721,6179126.310985325835645]}},
+{"type":"Feature","properties":{"text":"Toilet","type":"toilet","text_en":"Toilet","beskrivelse":null,"description":null},"geometry":{"type":"Point","coordinates":[724343.491166886873543,6179017.630694018676877]}},
+{"type":"Feature","properties":{"text":"Toilet","type":"toilet","text_en":"Toilet","beskrivelse":null,"description":null},"geometry":{"type":"Point","coordinates":[724363.428043592255563,6179228.912960566580296]}}
 ]
 }
