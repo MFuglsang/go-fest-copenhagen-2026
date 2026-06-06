@@ -2,6 +2,8 @@ import VectorLayer from 'ol/layer/Vector'
 import VectorSource from 'ol/source/Vector'
 import Style from 'ol/style/Style'
 import Text from 'ol/style/Text'
+import Fill from 'ol/style/Fill'
+import Stroke from 'ol/style/Stroke'
 import GeoJSON from 'ol/format/GeoJSON'
 
 const ICON_MAP: Record<string, string> = {
@@ -9,13 +11,14 @@ const ICON_MAP: Record<string, string> = {
   station: '🚂',
   sightseeing: '🏛️',
   shop: '🛒',
+  toilet: '🚻',
 }
 
 const getIconForType = (type: string): string => {
   return ICON_MAP[type?.toLowerCase()] || '📍'
 }
 
-export async function createPoiLayer(_language: 'da' | 'en'): Promise<VectorLayer<VectorSource>> {
+export async function createPoiLayer(language: 'da' | 'en'): Promise<VectorLayer<VectorSource>> {
   try {
     // Fetch GeoJSON file
     const baseUrl = import.meta.env.BASE_URL
@@ -38,18 +41,41 @@ export async function createPoiLayer(_language: 'da' | 'en'): Promise<VectorLaye
       features: features,
     })
 
-    // Create style function
+    // Create style function with zoom and language awareness
+    let currentZoom = 8
+    let currentLanguage = language
+    
     const styleFunction = (feature: any) => {
       const type = feature.get('type')?.toLowerCase() || ''
       const icon = getIconForType(type)
+      const text = currentLanguage === 'da' ? feature.get('text') : feature.get('text_en')
 
-      return new Style({
-        text: new Text({
-          text: icon,
-          font: 'bold 20px Arial',
-          offsetY: -12,
+      const styles = [
+        new Style({
+          text: new Text({
+            text: icon,
+            font: 'bold 20px Arial',
+            offsetY: -12,
+          }),
         }),
-      })
+      ]
+
+      // Add label text when zoomed in to level 10 or closer
+      if (currentZoom >= 10 && text) {
+        styles.push(
+          new Style({
+            text: new Text({
+              text: text,
+              font: 'bold 12px Arial',
+              fill: new Fill({ color: '#ffffff' }),
+              stroke: new Stroke({ color: '#000000', width: 2 }),
+              offsetY: 8,
+            }),
+          })
+        )
+      }
+
+      return styles
     }
 
     // Create vector layer
@@ -59,6 +85,18 @@ export async function createPoiLayer(_language: 'da' | 'en'): Promise<VectorLaye
       visible: true,
       zIndex: 100,
     })
+
+    // Expose setCurrentZoom for external zoom updates
+    ;(layer as any).setCurrentZoom = (zoom: number) => {
+      currentZoom = zoom
+      layer.setStyle(styleFunction)
+    }
+
+    // Expose setCurrentLanguage for external language updates
+    ;(layer as any).setCurrentLanguage = (lang: 'da' | 'en') => {
+      currentLanguage = lang
+      layer.setStyle(styleFunction)
+    }
 
     return layer
   } catch (error) {

@@ -16,6 +16,14 @@
       <span class="toggle-indicator" :class="{ on: showZones }"></span>
       <span class="toggle-text">Zoner</span>
     </button>
+    <button
+      class="layer-toggle"
+      :class="{ active: showGyms }"
+      @click="$emit('update:showGyms', !showGyms)"
+    >
+      <span class="toggle-indicator" :class="{ on: showGyms }"></span>
+      <span class="toggle-text">Gyms</span>
+    </button>
   </div>
 </template>
 
@@ -23,11 +31,13 @@
 defineProps<{
   showPoi: boolean
   showZones: boolean
+  showGyms: boolean
 }>()
 
 defineEmits<{
   'update:showPoi': [value: boolean]
   'update:showZones': [value: boolean]
+  'update:showGyms': [value: boolean]
 }>()
 </script>
 

@@ -7,6 +7,7 @@
     <LayerSwitcher 
       v-model:showPoi="showPoi" 
       v-model:showZones="showZones"
+      v-model:showGyms="showGyms"
     />
     <button
       class="location-button"
@@ -51,6 +52,7 @@ import { type Location } from '@/lib/locations'
 import { type Language, getTranslations } from '@/lib/i18n'
 import { createPoiLayer } from '@/lib/poi'
 import { createZonesLayer } from '@/lib/zones'
+import { createGymsLayer } from '@/lib/gyms'
 import LayerSwitcher from './LayerSwitcher.vue'
 import '@/lib/projection'
 
@@ -74,6 +76,7 @@ const errorMessage = ref('')
 const locationLoading = ref(false)
 const showPoi = ref(false)
 const showZones = ref(true)
+const showGyms = ref(true)
 const selectedPoi = ref<Feature | null>(null)
 const selectedZone = ref<Feature | null>(null)
 
@@ -115,6 +118,7 @@ let map: Map | null = null
 let userLocationSource: VectorSource | null = null
 let poiLayer: VectorLayer | null = null
 let zonesLayer: VectorLayer | null = null
+let gymsLayer: VectorLayer | null = null
 let geolocationWatch: number | null = null
 
 const createUserLocationLayer = () => {
@@ -213,6 +217,16 @@ watch(showZones, (show) => {
   if (zonesLayer) zonesLayer.setVisible(show)
 })
 
+watch(showGyms, (show) => {
+  if (gymsLayer) gymsLayer.setVisible(show)
+})
+
+watch(() => props.language, (lang) => {
+  if (poiLayer) {
+    ;(poiLayer as any).setCurrentLanguage(lang)
+  }
+})
+
 const handleMapClick = (event: MouseEvent) => {
   if (!map) return
 
@@ -272,9 +286,20 @@ onMounted(async () => {
       console.warn('Could not load zones layer:', error)
     }
 
+    // Load gyms layer
+    try {
+      gymsLayer = await createGymsLayer(props.language)
+      gymsLayer.setVisible(showGyms.value)
+    } catch (error) {
+      console.warn('Could not load gyms layer:', error)
+    }
+
     const layers = [baseLayer, userLocationLayer]
     if (zonesLayer) {
       layers.push(zonesLayer)
+    }
+    if (gymsLayer) {
+      layers.push(gymsLayer)
     }
     if (poiLayer) {
       layers.push(poiLayer)
@@ -295,6 +320,17 @@ onMounted(async () => {
         resolutions: [...DAF_RESOLUTIONS],
       }),
     })
+
+    // Update POI layer zoom level for label rendering
+    if (poiLayer && map?.getView()) {
+      const updatePoiZoom = () => {
+        const zoom = map?.getView().getZoom()
+        if (zoom !== undefined) {
+          ;(poiLayer as any).setCurrentZoom(zoom)
+        }
+      }
+      map.getView().on('change:resolution', updatePoiZoom)
+    }
   } catch (error) {
     status.value = 'error'
     errorMessage.value =

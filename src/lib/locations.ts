@@ -19,10 +19,10 @@ export const LOCATIONS: Location[] = [
     zoom: 11,
   },
   {
-    id: 'botaniskhave',
+    id: 'ørstedsparken',
     name: {
-      da: 'Botanisk Have',
-      en: 'Botanical Garden',
+      da: 'Ørstedsparken',
+      en: 'Ørsteds Park',
     },
     coordinates: [724192.62, 6176356.25],
     zoom: 11,
