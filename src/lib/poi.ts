@@ -3,7 +3,6 @@ import VectorSource from 'ol/source/Vector'
 import Style from 'ol/style/Style'
 import Text from 'ol/style/Text'
 import GeoJSON from 'ol/format/GeoJSON'
-import Feature from 'ol/Feature'
 
 const ICON_MAP: Record<string, string> = {
   metro: '🚇',
@@ -16,7 +15,7 @@ const getIconForType = (type: string): string => {
   return ICON_MAP[type?.toLowerCase()] || '📍'
 }
 
-export async function createPoiLayer(language: 'da' | 'en'): Promise<VectorLayer<VectorSource>> {
+export async function createPoiLayer(_language: 'da' | 'en'): Promise<VectorLayer<VectorSource>> {
   try {
     // Fetch GeoJSON file
     const response = await fetch('/data/poi.geojson')
@@ -39,7 +38,7 @@ export async function createPoiLayer(language: 'da' | 'en'): Promise<VectorLayer
     })
 
     // Create style function
-    const styleFunction = (feature: Feature) => {
+    const styleFunction = (feature: any) => {
       const type = feature.get('type')?.toLowerCase() || ''
       const icon = getIconForType(type)
 

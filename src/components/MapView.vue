@@ -44,11 +44,9 @@ import Point from 'ol/geom/Point'
 import VectorLayer from 'ol/layer/Vector'
 import VectorSource from 'ol/source/Vector'
 import Style from 'ol/style/Style'
-import Icon from 'ol/style/Icon'
 import Circle from 'ol/style/Circle'
 import Fill from 'ol/style/Fill'
 import Stroke from 'ol/style/Stroke'
-import Text from 'ol/style/Text'
 import { DAF_RESOLUTIONS, MAP_MAX_ZOOM } from '@/lib/resolutions'
 import { createSkaermkortGraaLayer } from '@/lib/wms/skaermkortGraa'
 import { type Location } from '@/lib/locations'
@@ -263,7 +261,7 @@ const handleMapClick = (event: MouseEvent) => {
   const poiFeatures: Feature[] = []
   const zoneFeatures: Feature[] = []
 
-  map.forEachFeatureAtPixel(pixel, (feature) => {
+  map.forEachFeatureAtPixel(pixel, (feature: any) => {
     // Check if it's a POI feature (features with 'text' attribute)
     if (feature.get('text') !== undefined || feature.get('text_en') !== undefined) {
       poiFeatures.push(feature)

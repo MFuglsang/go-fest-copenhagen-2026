@@ -4,9 +4,8 @@ import Style from 'ol/style/Style'
 import Stroke from 'ol/style/Stroke'
 import Fill from 'ol/style/Fill'
 import GeoJSON from 'ol/format/GeoJSON'
-import Feature from 'ol/Feature'
 
-export async function createZonesLayer(language: 'da' | 'en'): Promise<VectorLayer> {
+export async function createZonesLayer(_language: 'da' | 'en'): Promise<VectorLayer> {
   try {
     // Fetch GeoJSON file
     const response = await fetch('/data/zones.geojson')
@@ -29,7 +28,7 @@ export async function createZonesLayer(language: 'da' | 'en'): Promise<VectorLay
     })
 
     // Create style function
-    const styleFunction = (feature: Feature) => {
+    const styleFunction = (feature: any) => {
       const type = feature.get('type')?.toLowerCase() || ''
 
       // Parks with green outline and no fill
