@@ -95,6 +95,13 @@
 {"type":"Feature","properties":{"text":"Cafe Vivaldi","type":"restaurant","text_en":"Cafe Vivaldi","beskrivelse":null,"description":null},"geometry":{"type":"Point","coordinates":[724587.961039168643765,6176622.04476501327008]}},
 {"type":"Feature","properties":{"text":"Burger King","type":"restaurant","text_en":"Burger King","beskrivelse":null,"description":null},"geometry":{"type":"Point","coordinates":[724613.246834014542401,6176602.594153594225645]}},
 {"type":"Feature","properties":{"text":"Lagkagehuset","type":"restaurant","text_en":"Lagkagehuset","beskrivelse":null,"description":null},"geometry":{"type":"Point","coordinates":[724642.909016429795884,6176580.712215746752918]}},
-{"type":"Feature","properties":{"text":"7-11","type":"shop","text_en":"7-11","beskrivelse":null,"description":null},"geometry":{"type":"Point","coordinates":[724717.793870396213606,6176499.992178354412317]}}
+{"type":"Feature","properties":{"text":"7-11","type":"shop","text_en":"7-11","beskrivelse":null,"description":null},"geometry":{"type":"Point","coordinates":[724717.793870396213606,6176499.992178354412317]}},
+{"type":"Feature","properties":{"text":"Herkules Pavillonen Café","type":"restaurant","text_en":"Herkules Pavillonen Café","beskrivelse":null,"description":null},"geometry":{"type":"Point","coordinates":[725055.261978530790657,6176972.642035857774317]}},
+{"type":"Feature","properties":{"text":"Toilet","type":"toilet","text_en":"Toilet","beskrivelse":null,"description":null},"geometry":{"type":"Point","coordinates":[725099.025854225503281,6176946.869975726120174]}},
+{"type":"Feature","properties":{"text":"Orangeriet","type":"restaurant","text_en":"Orangeriet","beskrivelse":null,"description":null},"geometry":{"type":"Point","coordinates":[725163.212871911004186,6176800.017859506420791]}},
+{"type":"Feature","properties":{"text":"Kafferiet","type":"restaurant","text_en":"Kafferiet","beskrivelse":null,"description":null},"geometry":{"type":"Point","coordinates":[725096.108262512600049,6176605.025480020791292]}},
+{"type":"Feature","properties":{"text":"Rema 1000","type":"shop","text_en":"Rema 1000","beskrivelse":null,"description":null},"geometry":{"type":"Point","coordinates":[725169.048055337043479,6176560.775339040905237]}},
+{"type":"Feature","properties":{"text":"Netto","type":"shop","text_en":"Netto","beskrivelse":null,"description":null},"geometry":{"type":"Point","coordinates":[724598.736688971635886,6176362.876582960598171]}},
+{"type":"Feature","properties":{"text":"7-11","type":"shop","text_en":"7-11","beskrivelse":null,"description":null},"geometry":{"type":"Point","coordinates":[724470.389237580006011,6176499.057446878403425]}}
 ]
 }
