@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "event places",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::25832" } },
+"features": [
+{"type":"Feature","properties":{"type":"entrance","text":"Hovedindgang","text_en":"Main entrance"},"geometry":{"type":"Point","coordinates":[724637.455598599859513,6178389.294067131355405]}}
+]
+}

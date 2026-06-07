@@ -7,26 +7,21 @@ import Stroke from 'ol/style/Stroke'
 import GeoJSON from 'ol/format/GeoJSON'
 
 const ICON_MAP: Record<string, string> = {
-  metro: '🚇',
-  station: '🚂',
-  sightseeing: '🏛️',
-  shop: '🛒',
-  restaurant: '🍽️',
-  toilet: '🚻',
+  entrance: '⭐',
 }
 
 const getIconForType = (type: string): string => {
   return ICON_MAP[type?.toLowerCase()] || '📍'
 }
 
-export async function createPoiLayer(language: 'da' | 'en'): Promise<VectorLayer<VectorSource>> {
+export async function createEventPlacesLayer(language: 'da' | 'en'): Promise<VectorLayer<VectorSource>> {
   try {
     // Fetch GeoJSON file
     const baseUrl = import.meta.env.BASE_URL
-    const response = await fetch(baseUrl + 'data/poi.geojson')
-    
+    const response = await fetch(baseUrl + 'data/event%20places.geojson')
+
     if (!response.ok) {
-      throw new Error(`Failed to fetch POI data: ${response.status}`)
+      throw new Error(`Failed to fetch event places data: ${response.status}`)
     }
 
     const geojson = await response.json()
@@ -45,7 +40,7 @@ export async function createPoiLayer(language: 'da' | 'en'): Promise<VectorLayer
     // Create style function with zoom and language awareness
     let currentZoom = 8
     let currentLanguage = language
-    
+
     const styleFunction = (feature: any) => {
       const type = feature.get('type')?.toLowerCase() || ''
       const icon = getIconForType(type)
@@ -101,7 +96,7 @@ export async function createPoiLayer(language: 'da' | 'en'): Promise<VectorLayer
 
     return layer
   } catch (error) {
-    console.error('Error loading POI layer:', error)
+    console.error('Error loading event places layer:', error)
     throw error
   }
 }

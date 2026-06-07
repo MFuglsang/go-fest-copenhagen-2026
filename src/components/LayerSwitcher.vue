@@ -1,43 +1,79 @@
 <template>
   <div class="layer-switcher">
     <button
-      class="layer-toggle"
-      :class="{ active: showPoi }"
-      @click="$emit('update:showPoi', !showPoi)"
+      class="layer-switcher-header"
+      @click="isExpanded = !isExpanded"
     >
-      <span class="toggle-indicator" :class="{ on: showPoi }"></span>
-      <span class="toggle-text">POI</span>
+      <span class="header-text">{{ language === 'da' ? 'Lag' : 'Layers' }}</span>
+      <span class="chevron" :class="{ expanded: isExpanded }">▼</span>
     </button>
-    <button
-      class="layer-toggle"
-      :class="{ active: showZones }"
-      @click="$emit('update:showZones', !showZones)"
-    >
-      <span class="toggle-indicator" :class="{ on: showZones }"></span>
-      <span class="toggle-text">Zoner</span>
-    </button>
-    <button
-      class="layer-toggle"
-      :class="{ active: showGyms }"
-      @click="$emit('update:showGyms', !showGyms)"
-    >
-      <span class="toggle-indicator" :class="{ on: showGyms }"></span>
-      <span class="toggle-text">Gyms</span>
-    </button>
+    
+    <div v-show="isExpanded" class="layer-toggles">
+      <button
+        class="layer-toggle"
+        :class="{ active: showPoi }"
+        @click="$emit('update:showPoi', !showPoi)"
+      >
+        <span class="toggle-indicator" :class="{ on: showPoi }"></span>
+        <span class="toggle-text">POI</span>
+      </button>
+      <button
+        class="layer-toggle"
+        :class="{ active: showZones }"
+        @click="$emit('update:showZones', !showZones)"
+      >
+        <span class="toggle-indicator" :class="{ on: showZones }"></span>
+        <span class="toggle-text">Zoner</span>
+      </button>
+      <button
+        class="layer-toggle"
+        :class="{ active: showGyms }"
+        @click="$emit('update:showGyms', !showGyms)"
+      >
+        <span class="toggle-indicator" :class="{ on: showGyms }"></span>
+        <span class="toggle-text">Gyms</span>
+      </button>
+      <button
+        class="layer-toggle"
+        :class="{ active: showRoutes }"
+        @click="$emit('update:showRoutes', !showRoutes)"
+      >
+        <span class="toggle-indicator" :class="{ on: showRoutes }"></span>
+        <span class="toggle-text">Routes</span>
+      </button>
+      <button
+        class="layer-toggle"
+        :class="{ active: showEventPlaces }"
+        @click="$emit('update:showEventPlaces', !showEventPlaces)"
+      >
+        <span class="toggle-indicator" :class="{ on: showEventPlaces }"></span>
+        <span class="toggle-text">{{ language === 'da' ? 'Event Steder' : 'Event Places' }}</span>
+      </button>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
+import { type Language } from '@/lib/i18n'
+
+const isExpanded = ref(false)
+
 defineProps<{
   showPoi: boolean
   showZones: boolean
   showGyms: boolean
+  showRoutes: boolean
+  showEventPlaces: boolean
+  language: Language
 }>()
 
 defineEmits<{
   'update:showPoi': [value: boolean]
   'update:showZones': [value: boolean]
   'update:showGyms': [value: boolean]
+  'update:showRoutes': [value: boolean]
+  'update:showEventPlaces': [value: boolean]
 }>()
 </script>
 
@@ -49,12 +85,60 @@ defineEmits<{
   z-index: 15;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.5rem;
 }
 
-.layer-toggle-group {
+.layer-switcher-header {
   display: flex;
   align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  border-radius: 20px;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: var(--pokemon-black);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  white-space: nowrap;
+}
+
+.layer-switcher-header:active {
+  transform: scale(0.95);
+}
+
+.header-text {
+  flex: 1;
+}
+
+.chevron {
+  font-size: 0.7rem;
+  transition: transform 0.2s ease;
+  display: inline-block;
+}
+
+.chevron.expanded {
+  transform: rotate(180deg);
+}
+
+.layer-toggles {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  animation: slideDown 0.2s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .layer-toggle {
@@ -117,7 +201,11 @@ defineEmits<{
   .layer-switcher {
     top: 0.75rem;
     right: 0.75rem;
-    gap: 0.5rem;
+  }
+
+  .layer-switcher-header {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
   }
 
   .layer-toggle {

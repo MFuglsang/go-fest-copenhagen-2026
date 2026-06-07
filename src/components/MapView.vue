@@ -8,7 +8,11 @@
       v-model:showPoi="showPoi" 
       v-model:showZones="showZones"
       v-model:showGyms="showGyms"
+      v-model:showRoutes="showRoutes"
+      v-model:showEventPlaces="showEventPlaces"
+      :language="props.language"
     />
+    <LinksPanel :language="props.language" />
     <button
       class="location-button"
       :disabled="locationLoading"
@@ -53,7 +57,10 @@ import { type Language, getTranslations } from '@/lib/i18n'
 import { createPoiLayer } from '@/lib/poi'
 import { createZonesLayer } from '@/lib/zones'
 import { createGymsLayer } from '@/lib/gyms'
+import { createRoutesLayer } from '@/lib/routes'
+import { createEventPlacesLayer } from '@/lib/eventPlaces'
 import LayerSwitcher from './LayerSwitcher.vue'
+import LinksPanel from './LinksPanel.vue'
 import '@/lib/projection'
 
 interface Props {
@@ -68,7 +75,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 const translations = computed(() => getTranslations(props.language))
 
-const COPENHAGEN_CENTER: [number, number] = [724085, 6176918]
+const COPENHAGEN_CENTER: [number, number] = [724492, 6176908]
 
 const mapEl = ref<HTMLElement | null>(null)
 const status = ref<'ready' | 'error'>('ready')
@@ -76,7 +83,9 @@ const errorMessage = ref('')
 const locationLoading = ref(false)
 const showPoi = ref(false)
 const showZones = ref(true)
-const showGyms = ref(true)
+const showGyms = ref(false)
+const showRoutes = ref(false)
+const showEventPlaces = ref(true)
 const selectedPoi = ref<Feature | null>(null)
 const selectedZone = ref<Feature | null>(null)
 
@@ -119,6 +128,8 @@ let userLocationSource: VectorSource | null = null
 let poiLayer: VectorLayer | null = null
 let zonesLayer: VectorLayer | null = null
 let gymsLayer: VectorLayer | null = null
+let routesLayer: VectorLayer | null = null
+let eventPlacesLayer: VectorLayer | null = null
 let geolocationWatch: number | null = null
 
 const createUserLocationLayer = () => {
@@ -221,9 +232,20 @@ watch(showGyms, (show) => {
   if (gymsLayer) gymsLayer.setVisible(show)
 })
 
+watch(showRoutes, (show) => {
+  if (routesLayer) routesLayer.setVisible(show)
+})
+
+watch(showEventPlaces, (show) => {
+  if (eventPlacesLayer) eventPlacesLayer.setVisible(show)
+})
+
 watch(() => props.language, (lang) => {
   if (poiLayer) {
     ;(poiLayer as any).setCurrentLanguage(lang)
+  }
+  if (eventPlacesLayer) {
+    ;(eventPlacesLayer as any).setCurrentLanguage(lang)
   }
 })
 
@@ -233,10 +255,16 @@ const handleMapClick = (event: MouseEvent) => {
   const pixel = map.getEventPixel(event)
   const poiFeatures: Feature[] = []
   const zoneFeatures: Feature[] = []
+  const routeFeatures: Feature[] = []
 
   map.forEachFeatureAtPixel(pixel, (feature: any) => {
+    // Check if it's a route feature (LineString geometry)
+    const geom = feature.getGeometry()
+    if (geom?.getType() === 'LineString') {
+      routeFeatures.push(feature)
+    }
     // Check if it's a POI feature (features with 'text' attribute)
-    if (feature.get('text') !== undefined || feature.get('text_en') !== undefined) {
+    else if (feature.get('text') !== undefined || feature.get('text_en') !== undefined) {
       poiFeatures.push(feature)
     }
     // Check if it's a zone feature (features with 'type' but no 'text')
@@ -245,8 +273,14 @@ const handleMapClick = (event: MouseEvent) => {
     }
   })
 
-  // Prioritize POI over zones if both are clicked
-  if (poiFeatures.length > 0) {
+  // Prioritize routes - toggle selection instead of showing popup
+  if (routeFeatures.length > 0) {
+    ;(routesLayer as any).toggleRouteSelection(routeFeatures[0])
+    selectedPoi.value = null
+    selectedZone.value = null
+  }
+  // Then POI over zones if both are clicked
+  else if (poiFeatures.length > 0) {
     selectedPoi.value = poiFeatures[0]
     selectedZone.value = null
   } else if (zoneFeatures.length > 0) {
@@ -294,15 +328,37 @@ onMounted(async () => {
       console.warn('Could not load gyms layer:', error)
     }
 
+    // Load routes layer
+    try {
+      routesLayer = await createRoutesLayer()
+      routesLayer.setVisible(showRoutes.value)
+    } catch (error) {
+      console.warn('Could not load routes layer:', error)
+    }
+
+    // Load event places layer
+    try {
+      eventPlacesLayer = await createEventPlacesLayer(props.language)
+      eventPlacesLayer.setVisible(showEventPlaces.value)
+    } catch (error) {
+      console.warn('Could not load event places layer:', error)
+    }
+
     const layers = [baseLayer, userLocationLayer]
     if (zonesLayer) {
       layers.push(zonesLayer)
+    }
+    if (routesLayer) {
+      layers.push(routesLayer)
     }
     if (gymsLayer) {
       layers.push(gymsLayer)
     }
     if (poiLayer) {
       layers.push(poiLayer)
+    }
+    if (eventPlacesLayer) {
+      layers.push(eventPlacesLayer)
     }
 
     map = new Map({
@@ -322,14 +378,19 @@ onMounted(async () => {
     })
 
     // Update POI layer zoom level for label rendering
-    if (poiLayer && map?.getView()) {
-      const updatePoiZoom = () => {
+    if ((poiLayer || eventPlacesLayer) && map?.getView()) {
+      const updateLayersZoom = () => {
         const zoom = map?.getView().getZoom()
         if (zoom !== undefined) {
-          ;(poiLayer as any).setCurrentZoom(zoom)
+          if (poiLayer) {
+            ;(poiLayer as any).setCurrentZoom(zoom)
+          }
+          if (eventPlacesLayer) {
+            ;(eventPlacesLayer as any).setCurrentZoom(zoom)
+          }
         }
       }
-      map.getView().on('change:resolution', updatePoiZoom)
+      map.getView().on('change:resolution', updateLayersZoom)
     }
   } catch (error) {
     status.value = 'error'
