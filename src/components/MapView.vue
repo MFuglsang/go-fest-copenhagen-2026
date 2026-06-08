@@ -10,6 +10,7 @@
       v-model:showGyms="showGyms"
       v-model:showRoutes="showRoutes"
       v-model:showEventPlaces="showEventPlaces"
+      v-model:showCphSprint="showCphSprint"
       :language="props.language"
     />
     <LinksPanel :language="props.language" />
@@ -67,6 +68,7 @@ import { createZonesLayer } from '@/lib/zones'
 import { createGymsLayer } from '@/lib/gyms'
 import { createRoutesLayer } from '@/lib/routes'
 import { createEventPlacesLayer } from '@/lib/eventPlaces'
+import { createCphSprintLayer } from '@/lib/cphSprint'
 import LayerSwitcher from './LayerSwitcher.vue'
 import LinksPanel from './LinksPanel.vue'
 import '@/lib/projection'
@@ -94,6 +96,7 @@ const showZones = ref(true)
 const showGyms = ref(false)
 const showRoutes = ref(false)
 const showEventPlaces = ref(true)
+const showCphSprint = ref(false)
 const useOrtofoto = ref(false)
 const selectedPoi = ref<Feature | null>(null)
 const selectedZone = ref<Feature | null>(null)
@@ -139,6 +142,7 @@ let zonesLayer: VectorLayer | null = null
 let gymsLayer: VectorLayer | null = null
 let routesLayer: VectorLayer | null = null
 let eventPlacesLayer: VectorLayer | null = null
+let cphSprintLayer: VectorLayer | null = null
 let geolocationWatch: number | null = null
 let baseLayerSkaermkort: any = null
 let baseLayerOrto: any = null
@@ -249,6 +253,10 @@ watch(showRoutes, (show) => {
 
 watch(showEventPlaces, (show) => {
   if (eventPlacesLayer) eventPlacesLayer.setVisible(show)
+})
+
+watch(showCphSprint, (show) => {
+  if (cphSprintLayer) cphSprintLayer.setVisible(show)
 })
 
 watch(useOrtofoto, (use) => {
@@ -365,6 +373,14 @@ onMounted(async () => {
       console.warn('Could not load event places layer:', error)
     }
 
+    // Load CPH Sprint layer
+    try {
+      cphSprintLayer = await createCphSprintLayer()
+      cphSprintLayer.setVisible(showCphSprint.value)
+    } catch (error) {
+      console.warn('Could not load CPH Sprint layer:', error)
+    }
+
     const layers = [baseLayerSkaermkort, baseLayerOrto, userLocationLayer]
     if (zonesLayer) {
       layers.push(zonesLayer)
@@ -380,6 +396,9 @@ onMounted(async () => {
     }
     if (eventPlacesLayer) {
       layers.push(eventPlacesLayer)
+    }
+    if (cphSprintLayer) {
+      layers.push(cphSprintLayer)
     }
 
     map = new Map({

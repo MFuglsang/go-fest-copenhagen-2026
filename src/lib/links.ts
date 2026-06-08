@@ -11,16 +11,16 @@ export const LOCATIONS: Link[] = [
   {
     id: 'Weather_radar',
     name: {
-      da: 'Nedbørsradar',
-      en: 'Weather radar',
+      da: 'Nedbørsradar 🌧️',
+      en: 'Weather radar 🌧️',
     },
     url: 'https://www.dmi.dk/radar/'
   },
     {
     id: 'Weather_forecast',
     name: {
-      da: 'Vejrudsigt',
-      en: 'Weather forecast',
+      da: 'Vejrudsigt ⛅',
+      en: 'Weather forecast ⛅',
     },
     url: 'https://www.dmi.dk/lokation/show/DK/6615303/%C3%98sterbro'
   },
@@ -35,19 +35,28 @@ export const LOCATIONS: Link[] = [
   {
     id: 'emergency_services',
     name: {
-      da: 'Nødberedskab',
-      en: 'Emergency services',
+      da: 'Nødberedskab 🚑',
+      en: 'Emergency services 🚑',
     },
     url: 'https://politi.dk/om-politiet/kontakt-politiet/alarm-112'
   },
     {
     id: 'public_transport',
     name: {
-      da: 'Offentlig transport',
-      en: 'Public transport',
+      da: 'Offentlig transport 🚉',
+      en: 'Public transport 🚉',
     },
     url: 'https://cphtransitmap.dk/en/'
-       }
+       },
+
+    {
+      id: 'cph_sprint',
+      name: {
+        da: 'CPH Sprint ⚠️',
+        en: 'CPH Sprint ⚠️',
+      },
+      url: 'https://copenhagensprint.com/en/traffic-info-copenhagen/'
+    }
 
 
 

@@ -49,6 +49,14 @@
         <span class="toggle-indicator" :class="{ on: showEventPlaces }"></span>
         <span class="toggle-text">{{ language === 'da' ? 'Event Steder' : 'Event Places' }}</span>
       </button>
+      <button
+        class="layer-toggle"
+        :class="{ active: showCphSprint }"
+        @click="$emit('update:showCphSprint', !showCphSprint)"
+      >
+        <span class="toggle-indicator" :class="{ on: showCphSprint }"></span>
+        <span class="toggle-text">{{ language === 'da' ? 'Cph sprint' : 'Cph sprint' }}</span>
+      </button>
     </div>
   </div>
 </template>
@@ -65,6 +73,7 @@ defineProps<{
   showGyms: boolean
   showRoutes: boolean
   showEventPlaces: boolean
+  showCphSprint: boolean
   language: Language
 }>()
 
@@ -74,6 +83,7 @@ defineEmits<{
   'update:showGyms': [value: boolean]
   'update:showRoutes': [value: boolean]
   'update:showEventPlaces': [value: boolean]
+  'update:showCphSprint': [value: boolean]
 }>()
 </script>
 

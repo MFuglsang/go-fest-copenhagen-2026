@@ -12,6 +12,7 @@ export interface Translations {
     locationError: string
     locationNotSupported: string
     mapError: string
+    cphSprint: string
   }
 }
 
@@ -28,6 +29,7 @@ const translations: Record<Language, Translations> = {
       locationError: 'Kunne ikke finde din lokation. Kontroller venligst din browser-indstilling.',
       locationNotSupported: 'Geolocation er ikke understøttet af din browser.',
       mapError: 'Kortet kunne ikke indlæses',
+      cphSprint: 'Cph sprint',
     },
   },
   en: {
@@ -42,6 +44,7 @@ const translations: Record<Language, Translations> = {
       locationError: 'Could not find your location. Please check your browser settings.',
       locationNotSupported: 'Geolocation is not supported by your browser.',
       mapError: 'Map could not be loaded',
+      cphSprint: 'Cph sprint',
     },
   },
 }
