@@ -14,6 +14,13 @@
     />
     <LinksPanel :language="props.language" />
     <button
+      class="basemap-toggle-button"
+      @click="useOrtofoto = !useOrtofoto"
+      :title="useOrtofoto ? 'Skærmkort' : 'Flyfoto'"
+    >
+      {{ useOrtofoto ? (props.language === 'da' ? 'Skærmkort' : 'Map') : (props.language === 'da' ? 'Flyfoto' : 'Orthophoto') }}
+    </button>
+    <button
       class="location-button"
       :disabled="locationLoading"
       @click="centerToUserLocation"
@@ -52,6 +59,7 @@ import Fill from 'ol/style/Fill'
 import Stroke from 'ol/style/Stroke'
 import { DAF_RESOLUTIONS, MAP_MAX_ZOOM } from '@/lib/resolutions'
 import { createSkaermkortGraaLayer } from '@/lib/wms/skaermkortGraa'
+import { createOrtoLayer } from '@/lib/wms/ortoLayer'
 import { type Location } from '@/lib/locations'
 import { type Language, getTranslations } from '@/lib/i18n'
 import { createPoiLayer } from '@/lib/poi'
@@ -86,6 +94,7 @@ const showZones = ref(true)
 const showGyms = ref(false)
 const showRoutes = ref(false)
 const showEventPlaces = ref(true)
+const useOrtofoto = ref(false)
 const selectedPoi = ref<Feature | null>(null)
 const selectedZone = ref<Feature | null>(null)
 
@@ -131,6 +140,8 @@ let gymsLayer: VectorLayer | null = null
 let routesLayer: VectorLayer | null = null
 let eventPlacesLayer: VectorLayer | null = null
 let geolocationWatch: number | null = null
+let baseLayerSkaermkort: any = null
+let baseLayerOrto: any = null
 
 const createUserLocationLayer = () => {
   userLocationSource = new VectorSource()
@@ -240,6 +251,11 @@ watch(showEventPlaces, (show) => {
   if (eventPlacesLayer) eventPlacesLayer.setVisible(show)
 })
 
+watch(useOrtofoto, (use) => {
+  if (baseLayerSkaermkort) baseLayerSkaermkort.setVisible(!use)
+  if (baseLayerOrto) baseLayerOrto.setVisible(use)
+})
+
 watch(() => props.language, (lang) => {
   if (poiLayer) {
     ;(poiLayer as any).setCurrentLanguage(lang)
@@ -296,13 +312,18 @@ onMounted(async () => {
   if (!mapEl.value) return
 
   try {
-    const baseLayer = createSkaermkortGraaLayer()
+    baseLayerSkaermkort = createSkaermkortGraaLayer()
+    baseLayerOrto = createOrtoLayer()
     const userLocationLayer = createUserLocationLayer()
     const projection = getProjection('EPSG:25832')
 
     if (!projection) {
       throw new Error('EPSG:25832 projection is not registered')
     }
+
+    // Set initial base layer visibility
+    baseLayerSkaermkort.setVisible(!useOrtofoto.value)
+    baseLayerOrto.setVisible(useOrtofoto.value)
 
     // Load POI layer
     try {
@@ -344,7 +365,7 @@ onMounted(async () => {
       console.warn('Could not load event places layer:', error)
     }
 
-    const layers = [baseLayer, userLocationLayer]
+    const layers = [baseLayerSkaermkort, baseLayerOrto, userLocationLayer]
     if (zonesLayer) {
       layers.push(zonesLayer)
     }
@@ -439,6 +460,33 @@ onUnmounted(() => {
   font-weight: 600;
 }
 
+.basemap-toggle-button {
+  position: absolute;
+  bottom: 7rem;
+  right: 1.5rem;
+  z-index: 10;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  background: var(--primary-red);
+  border: 2px solid var(--pokemon-black);
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(138, 0, 0, 0.4);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+.basemap-toggle-button:hover {
+  background: var(--primary-dark-red);
+  box-shadow: 0 6px 16px rgba(138, 0, 0, 0.5);
+  transform: scale(1.05);
+}
+
 .location-button {
   position: absolute;
   bottom: 2rem;
@@ -494,6 +542,13 @@ onUnmounted(() => {
 }
 
 @media (max-width: 640px) {
+  .basemap-toggle-button {
+    bottom: 6rem;
+    right: 1rem;
+    padding: 0.625rem 0.75rem;
+    font-size: 0.8125rem;
+  }
+
   .location-button {
     bottom: 1rem;
     right: 1rem;
