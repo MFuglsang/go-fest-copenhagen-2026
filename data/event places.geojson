@@ -14,6 +14,9 @@
 { "type": "Feature", "properties": { "type": "aid", "text": "Førstehjælp", "text_en": "First aid" }, "geometry": { "type": "Point", "coordinates": [ 724434.498202649294399, 6178071.914338072761893 ] } },
 { "type": "Feature", "properties": { "type": "hydration", "text": "Vandpost", "text_en": "Hydration station" }, "geometry": { "type": "Point", "coordinates": [ 724461.956711301230825, 6178040.668448916636407 ] } },
 { "type": "Feature", "properties": { "type": "power", "text": "Pokestop Powerbank", "text_en": "Pokestop Powerbank" }, "geometry": { "type": "Point", "coordinates": [ 724511.192657849402167, 6178078.542253953404725 ] } },
-{ "type": "Feature", "properties": { "type": "battle", "text": "Kampplads", "text_en": "Battelground" }, "geometry": { "type": "Point", "coordinates": [ 724559.481759271817282, 6178121.150284620933235 ] } }
+{ "type": "Feature", "properties": { "type": "battle", "text": "Kampplads", "text_en": "Battelground" }, "geometry": { "type": "Point", "coordinates": [ 724559.481759271817282, 6178121.150284620933235 ] } },
+{ "type": "Feature", "properties": { "type": "wayfarer", "text": "Wayfarer", "text_en": "Wayfarer" }, "geometry": { "type": "Point", "coordinates": [ 724592.62133867922239, 6178166.598850664682686 ] } },
+{ "type": "Feature", "properties": { "type": "greet", "text": "Meet and Greed", "text_en": "Meet and Greed" }, "geometry": { "type": "Point", "coordinates": [ 724629.548298590467311, 6178207.31319107953459 ] } },
+{ "type": "Feature", "properties": { "type": "broadcast", "text": "Medier", "text_en": "Media" }, "geometry": { "type": "Point", "coordinates": [ 724680.677935390500352, 6178261.283363257534802 ] } }
 ]
 }
