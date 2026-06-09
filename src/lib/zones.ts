@@ -3,6 +3,7 @@ import VectorSource from 'ol/source/Vector'
 import Style from 'ol/style/Style'
 import Stroke from 'ol/style/Stroke'
 import Fill from 'ol/style/Fill'
+import Text from 'ol/style/Text'
 import GeoJSON from 'ol/format/GeoJSON'
 
 export async function createZonesLayer(_language: 'da' | 'en'): Promise<VectorLayer> {
@@ -28,33 +29,59 @@ export async function createZonesLayer(_language: 'da' | 'en'): Promise<VectorLa
       features: features,
     })
 
-    // Create style function
+    // Create style function with zoom awareness
+    let currentZoom = 8
+
     const styleFunction = (feature: any) => {
       const type = feature.get('type')?.toLowerCase() || ''
+      const name = feature.get('name') || ''
+
+      const styles = []
 
       // Parks with green outline and no fill
       if (type === 'park') {
-        return new Style({
-          stroke: new Stroke({
-            color: '#22BB33',
-            width: 2,
-          }),
-          fill: new Fill({
-            color: 'rgba(34, 187, 51, 0)',
-          }),
-        })
+        styles.push(
+          new Style({
+            stroke: new Stroke({
+              color: '#22BB33',
+              width: 2,
+            }),
+            fill: new Fill({
+              color: 'rgba(34, 187, 51, 0)',
+            }),
+          })
+        )
+      } else {
+        // Default style for other zones
+        styles.push(
+          new Style({
+            stroke: new Stroke({
+              color: '#CC1111',
+              width: 2,
+            }),
+            fill: new Fill({
+              color: 'rgba(204, 17, 17, 0.1)',
+            }),
+          })
+        )
       }
 
-      // Default style for other zones
-      return new Style({
-        stroke: new Stroke({
-          color: '#CC1111',
-          width: 2,
-        }),
-        fill: new Fill({
-          color: 'rgba(204, 17, 17, 0.1)',
-        }),
-      })
+      // Add label text when zoomed in to level 10 or closer
+      if (currentZoom >= 10 && name) {
+        styles.push(
+          new Style({
+            text: new Text({
+              text: name,
+              font: 'bold 14px Arial',
+              fill: new Fill({ color: '#333333' }),
+              stroke: new Stroke({ color: '#ffffff', width: 3 }),
+              overflow: true,
+            }),
+          })
+        )
+      }
+
+      return styles
     }
 
     // Create vector layer
@@ -64,6 +91,12 @@ export async function createZonesLayer(_language: 'da' | 'en'): Promise<VectorLa
       visible: true,
       zIndex: 99,
     })
+
+    // Expose setCurrentZoom for external zoom updates
+    ;(layer as any).setCurrentZoom = (zoom: number) => {
+      currentZoom = zoom
+      layer.setStyle(styleFunction)
+    }
 
     return layer
   } catch (error) {

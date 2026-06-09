@@ -128,8 +128,8 @@ const selectedPoiDescription = computed(() => {
 const selectedZoneName = computed(() => {
   if (!selectedZone.value) return ''
   const name = props.language === 'da' 
-    ? selectedZone.value.get('name_da') || selectedZone.value.get('name')
-    : selectedZone.value.get('name_en') || selectedZone.value.get('name')
+    ? selectedZone.value.get('name_da') || selectedZone.value.get('name') || selectedZone.value.get('text')
+    : selectedZone.value.get('name_en') || selectedZone.value.get('name') || selectedZone.value.get('text_en')
   return name || 'Ukendt'
 })
 
@@ -302,8 +302,8 @@ const handleMapClick = (event: MouseEvent) => {
     else if (geom?.getType() === 'Point' && (feature.get('text') !== undefined || feature.get('text_en') !== undefined)) {
       poiFeatures.push(feature)
     }
-    // Check if it's a zone feature (Polygon with 'type' attribute)
-    else if (geom?.getType() === 'Polygon' && feature.get('type') !== undefined) {
+    // Check if it's an event zone feature (Polygon with 'text' or 'text_en' attribute)
+    else if (geom?.getType() === 'Polygon' && (feature.get('text') !== undefined || feature.get('text_en') !== undefined)) {
       zoneFeatures.push(feature)
     }
   })
@@ -440,7 +440,7 @@ onMounted(async () => {
     })
 
     // Update POI layer zoom level for label rendering
-    if ((poiLayer || eventPlacesLayer || eventZonesLayer) && map?.getView()) {
+    if ((poiLayer || eventPlacesLayer || eventZonesLayer || zonesLayer) && map?.getView()) {
       const updateLayersZoom = () => {
         const zoom = map?.getView().getZoom()
         if (zoom !== undefined) {
@@ -452,6 +452,9 @@ onMounted(async () => {
           }
           if (eventZonesLayer) {
             ;(eventZonesLayer as any).setCurrentZoom(zoom)
+          }
+          if (zonesLayer) {
+            ;(zonesLayer as any).setCurrentZoom(zoom)
           }
         }
       }
