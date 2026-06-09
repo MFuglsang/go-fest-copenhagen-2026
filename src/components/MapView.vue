@@ -436,6 +436,7 @@ onMounted(async () => {
         minZoom: 0,
         maxZoom: MAP_MAX_ZOOM,
         resolutions: [...DAF_RESOLUTIONS],
+        enableRotation: false,
       }),
     })
 
