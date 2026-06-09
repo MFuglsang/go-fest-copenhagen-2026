@@ -3,6 +3,17 @@
 "name": "event places",
 "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::25832" } },
 "features": [
-{"type":"Feature","properties":{"type":"entrance","text":"Hovedindgang","text_en":"Main entrance"},"geometry":{"type":"Point","coordinates":[724637.455598599859513,6178389.294067131355405]}}
+{"type":"Feature","properties":{"type":"entrance","text":"Hovedindgang","text_en":"Main entrance"},"geometry":{"type":"Point","coordinates":[724637.455598599859513,6178389.294067131355405]}},
+{ "type": "Feature", "properties": { "type": "meeting_point", "text": "Mødested", "text_en": "Meeting point" }, "geometry": { "type": "Point", "coordinates": [ 724673.103174383169971, 6178321.881451316177845 ] } },
+{ "type": "Feature", "properties": { "type": "info", "text": "Information", "text_en": "Information" }, "geometry": { "type": "Point", "coordinates": [ 724642.330707790446468, 6178290.162139597348869 ] } },
+{ "type": "Feature", "properties": { "type": "shop", "text": "Shop", "text_en": "Shop" }, "geometry": { "type": "Point", "coordinates": [ 724605.877170442254283, 6178252.761757123284042 ] } },
+{ "type": "Feature", "properties": { "type": "tech", "text": "Teknisk support", "text_en": "Tech support" }, "geometry": { "type": "Point", "coordinates": [ 724568.47678796807304, 6178212.520839271135628 ] } },
+{ "type": "Feature", "properties": { "type": "hub", "text": "Ambasadør hub", "text_en": "Ambasador hub" }, "geometry": { "type": "Point", "coordinates": [ 724535.810631123604253, 6178177.960992175154388 ] } },
+{ "type": "Feature", "properties": { "type": "rocket", "text": "Team Rocket sjulested", "text_en": "Team Rocket hideout" }, "geometry": { "type": "Point", "coordinates": [ 724506.458432219806127, 6178147.661948145367205 ] } },
+{ "type": "Feature", "properties": { "type": "lounge", "text": "Team lounge", "text_en": "Team lounge" }, "geometry": { "type": "Point", "coordinates": [ 724477.106233316124417, 6178117.836326678283513 ] } },
+{ "type": "Feature", "properties": { "type": "aid", "text": "Førstehjælp", "text_en": "First aid" }, "geometry": { "type": "Point", "coordinates": [ 724434.498202649294399, 6178071.914338072761893 ] } },
+{ "type": "Feature", "properties": { "type": "hydration", "text": "Vandpost", "text_en": "Hydration station" }, "geometry": { "type": "Point", "coordinates": [ 724461.956711301230825, 6178040.668448916636407 ] } },
+{ "type": "Feature", "properties": { "type": "power", "text": "Pokesto Powerbank", "text_en": "Pokesto Powerbank" }, "geometry": { "type": "Point", "coordinates": [ 724511.192657849402167, 6178078.542253953404725 ] } },
+{ "type": "Feature", "properties": { "type": "battle", "text": "Kampplads", "text_en": "Battelground" }, "geometry": { "type": "Point", "coordinates": [ 724559.481759271817282, 6178121.150284620933235 ] } }
 ]
 }
