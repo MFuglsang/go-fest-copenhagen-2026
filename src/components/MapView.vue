@@ -10,6 +10,7 @@
       v-model:showGyms="showGyms"
       v-model:showRoutes="showRoutes"
       v-model:showEventPlaces="showEventPlaces"
+      v-model:showEventZones="showEventZones"
       v-model:showCphSprint="showCphSprint"
       :language="props.language"
     />
@@ -68,6 +69,7 @@ import { createZonesLayer } from '@/lib/zones'
 import { createGymsLayer } from '@/lib/gyms'
 import { createRoutesLayer } from '@/lib/routes'
 import { createEventPlacesLayer } from '@/lib/eventPlaces'
+import { createEventZonesLayer } from '@/lib/eventZones'
 import { createCphSprintLayer } from '@/lib/cphSprint'
 import LayerSwitcher from './LayerSwitcher.vue'
 import LinksPanel from './LinksPanel.vue'
@@ -96,6 +98,7 @@ const showZones = ref(true)
 const showGyms = ref(false)
 const showRoutes = ref(false)
 const showEventPlaces = ref(true)
+const showEventZones = ref(true)
 const showCphSprint = ref(false)
 const useOrtofoto = ref(false)
 const selectedPoi = ref<Feature | null>(null)
@@ -142,6 +145,7 @@ let zonesLayer: VectorLayer | null = null
 let gymsLayer: VectorLayer | null = null
 let routesLayer: VectorLayer | null = null
 let eventPlacesLayer: VectorLayer | null = null
+let eventZonesLayer: VectorLayer | null = null
 let cphSprintLayer: VectorLayer | null = null
 let geolocationWatch: number | null = null
 let baseLayerSkaermkort: any = null
@@ -255,6 +259,10 @@ watch(showEventPlaces, (show) => {
   if (eventPlacesLayer) eventPlacesLayer.setVisible(show)
 })
 
+watch(showEventZones, (show) => {
+  if (eventZonesLayer) eventZonesLayer.setVisible(show)
+})
+
 watch(showCphSprint, (show) => {
   if (cphSprintLayer) cphSprintLayer.setVisible(show)
 })
@@ -270,6 +278,9 @@ watch(() => props.language, (lang) => {
   }
   if (eventPlacesLayer) {
     ;(eventPlacesLayer as any).setCurrentLanguage(lang)
+  }
+  if (eventZonesLayer) {
+    ;(eventZonesLayer as any).setCurrentLanguage(lang)
   }
 })
 
@@ -287,12 +298,12 @@ const handleMapClick = (event: MouseEvent) => {
     if (geom?.getType() === 'LineString') {
       routeFeatures.push(feature)
     }
-    // Check if it's a POI feature (features with 'text' attribute)
-    else if (feature.get('text') !== undefined || feature.get('text_en') !== undefined) {
+    // Check if it's a POI feature (Point geometry with 'text' attribute)
+    else if (geom?.getType() === 'Point' && (feature.get('text') !== undefined || feature.get('text_en') !== undefined)) {
       poiFeatures.push(feature)
     }
-    // Check if it's a zone feature (features with 'type' but no 'text')
-    else if (feature.get('type') !== undefined) {
+    // Check if it's a zone feature (Polygon with 'type' attribute)
+    else if (geom?.getType() === 'Polygon' && feature.get('type') !== undefined) {
       zoneFeatures.push(feature)
     }
   })
@@ -373,6 +384,14 @@ onMounted(async () => {
       console.warn('Could not load event places layer:', error)
     }
 
+    // Load event zones layer
+    try {
+      eventZonesLayer = await createEventZonesLayer(props.language)
+      eventZonesLayer.setVisible(showEventZones.value)
+    } catch (error) {
+      console.warn('Could not load event zones layer:', error)
+    }
+
     // Load CPH Sprint layer
     try {
       cphSprintLayer = await createCphSprintLayer()
@@ -397,6 +416,9 @@ onMounted(async () => {
     if (eventPlacesLayer) {
       layers.push(eventPlacesLayer)
     }
+    if (eventZonesLayer) {
+      layers.push(eventZonesLayer)
+    }
     if (cphSprintLayer) {
       layers.push(cphSprintLayer)
     }
@@ -418,7 +440,7 @@ onMounted(async () => {
     })
 
     // Update POI layer zoom level for label rendering
-    if ((poiLayer || eventPlacesLayer) && map?.getView()) {
+    if ((poiLayer || eventPlacesLayer || eventZonesLayer) && map?.getView()) {
       const updateLayersZoom = () => {
         const zoom = map?.getView().getZoom()
         if (zoom !== undefined) {
@@ -427,6 +449,9 @@ onMounted(async () => {
           }
           if (eventPlacesLayer) {
             ;(eventPlacesLayer as any).setCurrentZoom(zoom)
+          }
+          if (eventZonesLayer) {
+            ;(eventZonesLayer as any).setCurrentZoom(zoom)
           }
         }
       }

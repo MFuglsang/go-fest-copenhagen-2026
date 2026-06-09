@@ -11,19 +11,27 @@
     <div v-show="isExpanded" class="layer-toggles">
       <button
         class="layer-toggle"
-        :class="{ active: showPoi }"
-        @click="$emit('update:showPoi', !showPoi)"
-      >
-        <span class="toggle-indicator" :class="{ on: showPoi }"></span>
-        <span class="toggle-text">POI</span>
-      </button>
-      <button
-        class="layer-toggle"
         :class="{ active: showZones }"
         @click="$emit('update:showZones', !showZones)"
       >
         <span class="toggle-indicator" :class="{ on: showZones }"></span>
         <span class="toggle-text">Zoner</span>
+      </button>
+      <button
+        class="layer-toggle"
+        :class="{ active: showEventZones }"
+        @click="$emit('update:showEventZones', !showEventZones)"
+      >
+        <span class="toggle-indicator" :class="{ on: showEventZones }"></span>
+        <span class="toggle-text">{{ language === 'da' ? 'Event Zoner' : 'Event Zones' }}</span>
+      </button>
+      <button
+        class="layer-toggle"
+        :class="{ active: showEventPlaces }"
+        @click="$emit('update:showEventPlaces', !showEventPlaces)"
+      >
+        <span class="toggle-indicator" :class="{ on: showEventPlaces }"></span>
+        <span class="toggle-text">{{ language === 'da' ? 'Event Steder' : 'Event Places' }}</span>
       </button>
       <button
         class="layer-toggle"
@@ -43,11 +51,11 @@
       </button>
       <button
         class="layer-toggle"
-        :class="{ active: showEventPlaces }"
-        @click="$emit('update:showEventPlaces', !showEventPlaces)"
+        :class="{ active: showPoi }"
+        @click="$emit('update:showPoi', !showPoi)"
       >
-        <span class="toggle-indicator" :class="{ on: showEventPlaces }"></span>
-        <span class="toggle-text">{{ language === 'da' ? 'Event Steder' : 'Event Places' }}</span>
+        <span class="toggle-indicator" :class="{ on: showPoi }"></span>
+        <span class="toggle-text">POI</span>
       </button>
       <button
         class="layer-toggle"
@@ -73,6 +81,7 @@ defineProps<{
   showGyms: boolean
   showRoutes: boolean
   showEventPlaces: boolean
+  showEventZones: boolean
   showCphSprint: boolean
   language: Language
 }>()
@@ -83,6 +92,7 @@ defineEmits<{
   'update:showGyms': [value: boolean]
   'update:showRoutes': [value: boolean]
   'update:showEventPlaces': [value: boolean]
+  'update:showEventZones': [value: boolean]
   'update:showCphSprint': [value: boolean]
 }>()
 </script>

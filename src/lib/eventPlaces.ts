@@ -8,6 +8,20 @@ import GeoJSON from 'ol/format/GeoJSON'
 
 const ICON_MAP: Record<string, string> = {
   entrance: '⭐',
+  meeting_point: '🤝',
+  info: 'ℹ️',
+  shop: '🎪',
+  tech: '🛠️',
+  hub: '🟠',
+  rocket: '🚀',
+  aid: '🚑',
+  hydration: '🫗',
+  power: '🪫',
+  battle: '⚔️',
+  lounge: '🛖',
+  wayfarer: '❗',
+  greet: '👋',
+  broadcast: '📺',
 }
 
 const getIconForType = (type: string): string => {
