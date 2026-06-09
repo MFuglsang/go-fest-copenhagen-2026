@@ -17,6 +17,8 @@
 { "type": "Feature", "properties": { "type": "battle", "text": "Kampplads", "text_en": "Battelground" }, "geometry": { "type": "Point", "coordinates": [ 724559.481759271817282, 6178121.150284620933235 ] } },
 { "type": "Feature", "properties": { "type": "wayfarer", "text": "Wayfarer", "text_en": "Wayfarer" }, "geometry": { "type": "Point", "coordinates": [ 724592.62133867922239, 6178166.598850664682686 ] } },
 { "type": "Feature", "properties": { "type": "greet", "text": "Meet and Greed", "text_en": "Meet and Greed" }, "geometry": { "type": "Point", "coordinates": [ 724629.548298590467311, 6178207.31319107953459 ] } },
-{ "type": "Feature", "properties": { "type": "broadcast", "text": "Medier", "text_en": "Media" }, "geometry": { "type": "Point", "coordinates": [ 724680.677935390500352, 6178261.283363257534802 ] } }
+{ "type": "Feature", "properties": { "type": "broadcast", "text": "Medier", "text_en": "Media" }, "geometry": { "type": "Point", "coordinates": [ 724680.677935390500352, 6178261.283363257534802 ] } },
+{ "type": "Feature", "properties": { "type": "shop", "text": "Merchandise", "text_en": "Merchandise" }, "geometry": { "type": "Point", "coordinates": [ 724687.447908446541987, 6178410.364949296228588 ] } },
+{ "type": "Feature", "properties": { "type": "shop", "text": "Forudbestillinger", "text_en": "Pre-order pickup" }, "geometry": { "type": "Point", "coordinates": [ 724662.074648309033364, 6178409.801099070347846 ] } }
 ]
 }
