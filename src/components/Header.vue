@@ -33,15 +33,29 @@
           EN
         </button>
       </div>
+      <button class="info-btn" @click="showDisclaimer = true" aria-label="Info">
+        ℹ️
+      </button>
     </div>
   </header>
+
+  <Teleport to="body">
+    <div v-if="showDisclaimer" class="disclaimer-overlay" @click.self="showDisclaimer = false">
+      <div class="disclaimer-modal">
+        <p>{{ translations.disclaimer }}</p>
+        <button class="disclaimer-close" @click="showDisclaimer = false">✕</button>
+      </div>
+    </div>
+  </Teleport>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { LOCATIONS } from '@/lib/locations'
 import { type Location } from '@/lib/locations'
 import { type Language, getTranslations } from '@/lib/i18n'
+
+const showDisclaimer = ref(false)
 
 interface Props {
   language: Language
@@ -208,6 +222,68 @@ const handleLocationChange = (event: Event) => {
   .language-switcher {
     margin-left: 0;
   }
+}
+
+.info-btn {
+  background: transparent;
+  border: 2px solid white;
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+  padding: 0;
+  flex-shrink: 0;
+  transition: background 0.2s ease;
+}
+
+.info-btn:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.disclaimer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.disclaimer-modal {
+  background: white;
+  color: var(--pokemon-black);
+  border-radius: 8px;
+  padding: 1.5rem 2rem;
+  max-width: 480px;
+  width: 100%;
+  position: relative;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.disclaimer-close {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.75rem;
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: var(--pokemon-black);
+  line-height: 1;
+  padding: 0.25rem;
+}
+
+.disclaimer-close:hover {
+  opacity: 0.7;
 }
 
 @media (max-width: 640px) {

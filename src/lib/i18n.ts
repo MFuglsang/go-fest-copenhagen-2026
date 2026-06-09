@@ -6,6 +6,7 @@ export interface Translations {
     subtitle: string
     selectLocation: string
   }
+  disclaimer: string
   map: {
     findMyLocation: string
     findingLocation: string
@@ -23,6 +24,8 @@ const translations: Record<Language, Translations> = {
       subtitle: '2026',
       selectLocation: 'Gå til lokation...',
     },
+    disclaimer:
+      'Alle data i denne app er manuelt indsamlet - der er ingen garanti for at de er rigtige, og der tages ikke ansvar for deres rigtighed.',
     map: {
       findMyLocation: 'Gå til min lokation',
       findingLocation: 'Finder din lokation...',
@@ -38,6 +41,8 @@ const translations: Record<Language, Translations> = {
       subtitle: '2026',
       selectLocation: 'Go to location...',
     },
+    disclaimer:
+      'All data in this app has been collected manually - there is no guarantee that it is correct, and no responsibility is taken for its accuracy.',
     map: {
       findMyLocation: 'Go to my location',
       findingLocation: 'Finding your location...',

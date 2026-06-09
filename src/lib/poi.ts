@@ -13,6 +13,8 @@ const ICON_MAP: Record<string, string> = {
   shop: '🛒',
   restaurant: '🍽️',
   toilet: '🚻',
+  parking: '🅿️',
+  atm: '🏧',
 }
 
 const getIconForType = (type: string): string => {
