@@ -432,7 +432,7 @@ onMounted(async () => {
       view: new View({
         projection,
         center: COPENHAGEN_CENTER,
-        zoom: 8,
+        zoom: 7,
         minZoom: 0,
         maxZoom: MAP_MAX_ZOOM,
         resolutions: [...DAF_RESOLUTIONS],
