@@ -8,15 +8,11 @@
 {"type":"Feature","properties":{"type":"info","text":"Information","text_en":"Information"},"geometry":{"type":"Point","coordinates":[724438.317144657834433,6178531.544523699209094]}},
 {"type":"Feature","properties":{"type":"shop","text":"Shop","text_en":"Shop"},"geometry":{"type":"Point","coordinates":[724569.515528083778918,6178967.40339423250407]}},
 {"type":"Feature","properties":{"type":"tech","text":"Teknisk support","text_en":"Tech support"},"geometry":{"type":"Point","coordinates":[724481.619528416544199,6178490.262076209299266]}},
-{"type":"Feature","properties":{"type":"hub","text":"Ambasadør hub","text_en":"Ambasador hub"},"geometry":{"type":"Point","coordinates":[724499.448988765128888,6178892.602629284374416]}},
 {"type":"Feature","properties":{"type":"rocket","text":"Team Rocket skjulested","text_en":"Team Rocket hideout"},"geometry":{"type":"Point","coordinates":[724292.597679777536541,6178360.007748385891318]}},
-{"type":"Feature","properties":{"type":"lounge","text":"Team lounge","text_en":"Team lounge"},"geometry":{"type":"Point","coordinates":[724440.744590957649052,6178832.477963787503541]}},
 {"type":"Feature","properties":{"type":"aid","text":"Førstehjælp","text_en":"First aid"},"geometry":{"type":"Point","coordinates":[724270.091520611662418,6178722.801331994123757]}},
 {"type":"Feature","properties":{"type":"hydration","text":"Vandpost","text_en":"Hydration station"},"geometry":{"type":"Point","coordinates":[724274.102638317737728,6178755.725888014771044]}},
-{"type":"Feature","properties":{"type":"power","text":"Pokestop Powerbank","text_en":"Pokestop Powerbank"},"geometry":{"type":"Point","coordinates":[724474.831015490926802,6178793.183891062624753]}},
 {"type":"Feature","properties":{"type":"battle","text":"Kampplads","text_en":"Battleground"},"geometry":{"type":"Point","coordinates":[724180.238002291531302,6178604.346494359895587]}},
 {"type":"Feature","properties":{"type":"wayfarer","text":"Wayfarer","text_en":"Wayfarer"},"geometry":{"type":"Point","coordinates":[723986.218180762021802,6178628.364928239956498]}},
-{"type":"Feature","properties":{"type":"greet","text":"Meet and Greet","text_en":"Meet and Greet"},"geometry":{"type":"Point","coordinates":[724593.186656231991947,6178921.954828188754618]}},
 {"type":"Feature","properties":{"type":"broadcast","text":"Media and partners","text_en":"Media and partners"},"geometry":{"type":"Point","coordinates":[724138.565173964831047,6178560.180436387658119]}},
 {"type":"Feature","properties":{"type":"shop","text":"Merchandise","text_en":"Merchandise"},"geometry":{"type":"Point","coordinates":[724664.723625424318016,6178412.889869632199407]}},
 {"type":"Feature","properties":{"type":"shop","text":"Forudbestillinger","text_en":"Pre-order pickup"},"geometry":{"type":"Point","coordinates":[724647.935094428597949,6178409.801099070347846]}},
@@ -38,6 +34,16 @@
 {"type":"Feature","properties":{"type":"hydration","text":"Hydration","text_en":"Hydration"},"geometry":{"type":"Point","coordinates":[724152.826289251330309,6178423.557223464362323]}},
 {"type":"Feature","properties":{"type":"hub","text":"Ambasador Hub","text_en":"Ambasador Hub"},"geometry":{"type":"Point","coordinates":[723974.420438987319358,6178679.647302825003862]}},
 {"type":"Feature","properties":{"type":"meeting_point","text":"Mascot meet and greet","text_en":"Mascot meet and greet"},"geometry":{"type":"Point","coordinates":[724232.653531561605632,6178371.053399667143822]}},
-{"type":"Feature","properties":{"type":"food","text":"Food","text_en":"Food"},"geometry":{"type":"Point","coordinates":[724110.501778227626346,6178368.910386451520026]}}
+{"type":"Feature","properties":{"type":"food","text":"Food","text_en":"Food"},"geometry":{"type":"Point","coordinates":[724110.501778227626346,6178368.910386451520026]}},
+{"type":"Feature","properties":{"type":"memory","text":"Memory lane","text_en":"Memory Lane"},"geometry":{"type":"Point","coordinates":[724555.17702062765602,6178356.052307152189314]}},
+{"type":"Feature","properties":{"type":"memory","text":"Memory Lane","text_en":"Memory Lane"},"geometry":{"type":"Point","coordinates":[724555.17702062765602,6178422.485716859810054]}},
+{"type":"Feature","properties":{"type":"power","text":"Pokestop Powerbank","text_en":"Pokestop Powerbank"},"geometry":{"type":"Point","coordinates":[724294.800914836931042,6178401.055584697052836]}},
+{"type":"Feature","properties":{"type":"power","text":"Pokestop Powerbank","text_en":"Pokestop Powerbank"},"geometry":{"type":"Point","coordinates":[724234.796544778044336,6178407.48462434578687]}},
+{"type":"Feature","properties":{"type":"power","text":"Pokestop Powerbank","text_en":"Pokestop Powerbank"},"geometry":{"type":"Point","coordinates":[724221.938465479761362,6178593.926774172112346]}},
+{"type":"Feature","properties":{"type":"power","text":"Pokestop Powerbank","text_en":"Pokestop Powerbank"},"geometry":{"type":"Point","coordinates":[724248.726130684604868,6178647.502104581333697]}},
+{"type":"Feature","properties":{"type":"power","text":"Pokestop Powerbank","text_en":"Pokestop Powerbank"},"geometry":{"type":"Point","coordinates":[724075.142060157260858,6178592.855267563834786]}},
+{"type":"Feature","properties":{"type":"power","text":"Pokestop Powerbank","text_en":"Pokestop Powerbank"},"geometry":{"type":"Point","coordinates":[724004.422624016413465,6178830.729734581895173]}},
+{"type":"Feature","properties":{"type":"toilet","text":"Toilet","text_en":"Toilet"},"geometry":{"type":"Point","coordinates":[724006.565637232735753,6178561.781575925648212]}},
+{"type":"Feature","properties":{"type":"hydration","text":"Hydration","text_en":"Hydration"},"geometry":{"type":"Point","coordinates":[724504.81621004268527,6178474.989540660753846]}}
 ]
 }
