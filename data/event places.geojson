@@ -30,7 +30,7 @@
 {"type":"Feature","properties":{"type":"info","text":"Family services","text_en":"Family services"},"geometry":{"type":"Point","coordinates":[724450.767519535962492,6178521.567986952140927]}},
 {"type":"Feature","properties":{"type":"lounge","text":"Premier access lounge","text_en":"Premier access lounge"},"geometry":{"type":"Point","coordinates":[724506.315766923478805,6178442.790472475811839]}},
 {"type":"Feature","properties":{"type":"lego","text":"Lego Stamp rally","text_en":"Lego Stamp rally"},"geometry":{"type":"Point","coordinates":[724176.200259038596414,6175630.526113441213965]}},
-{"type":"Feature","properties":{"type":"legoo","text":"Lego Stamp rally","text_en":"Lego Stamp rally"},"geometry":{"type":"Point","coordinates":[724820.089408036204986,6176100.546234814450145]}},
+{"type":"Feature","properties":{"type":"lego","text":"Lego Stamp rally","text_en":"Lego Stamp rally"},"geometry":{"type":"Point","coordinates":[724820.089408036204986,6176100.546234814450145]}},
 {"type":"Feature","properties":{"type":"lego","text":"Lego Stamp rally","text_en":"Lego Stamp rally"},"geometry":{"type":"Point","coordinates":[725044.209435121505521,6176773.645986126735806]}},
 {"type":"Feature","properties":{"type":"lego","text":"Lego Stamp rally","text_en":"Lego Stamp rally"},"geometry":{"type":"Point","coordinates":[726117.691174573265016,6177363.22897890675813]}}
 ]
