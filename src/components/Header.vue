@@ -34,7 +34,7 @@
         </button>
       </div>
       <button class="info-btn" @click="showDisclaimer = true" aria-label="Info">
-        ℹ️
+        I
       </button>
     </div>
   </header>
