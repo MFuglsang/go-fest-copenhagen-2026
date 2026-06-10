@@ -11,14 +11,6 @@
     <div v-show="isExpanded" class="layer-toggles">
       <button
         class="layer-toggle"
-        :class="{ active: showZones }"
-        @click="$emit('update:showZones', !showZones)"
-      >
-        <span class="toggle-indicator" :class="{ on: showZones }"></span>
-        <span class="toggle-text">Zoner</span>
-      </button>
-      <button
-        class="layer-toggle"
         :class="{ active: showEventZones }"
         @click="$emit('update:showEventZones', !showEventZones)"
       >
@@ -77,7 +69,6 @@ const isExpanded = ref(false)
 
 defineProps<{
   showPoi: boolean
-  showZones: boolean
   showGyms: boolean
   showRoutes: boolean
   showEventPlaces: boolean
@@ -88,7 +79,6 @@ defineProps<{
 
 defineEmits<{
   'update:showPoi': [value: boolean]
-  'update:showZones': [value: boolean]
   'update:showGyms': [value: boolean]
   'update:showRoutes': [value: boolean]
   'update:showEventPlaces': [value: boolean]

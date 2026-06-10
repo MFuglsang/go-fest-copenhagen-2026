@@ -25,7 +25,7 @@ const ICON_MAP: Record<string, string> = {
   toilet: '🚻',
   food: '🍽️',
   memory: '🎞️',
-  lego: '🕹️',
+  lego: '🎟️',
 }
 
 const getIconForType = (type: string): string => {

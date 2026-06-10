@@ -6,7 +6,6 @@
     <div ref="mapEl" class="map" @click="handleMapClick" />
     <LayerSwitcher 
       v-model:showPoi="showPoi" 
-      v-model:showZones="showZones"
       v-model:showGyms="showGyms"
       v-model:showRoutes="showRoutes"
       v-model:showEventPlaces="showEventPlaces"
@@ -37,11 +36,7 @@
       <p v-if="selectedPoiType" class="poi-popup__type">{{ selectedPoiType }}</p>
       <p v-if="selectedPoiDescription" class="poi-popup__description">{{ selectedPoiDescription }}</p>
     </div>
-    <div v-if="selectedZone" class="zone-popup">
-      <button class="zone-popup__close" @click="selectedZone = null">✕</button>
-      <h3 class="zone-popup__title">{{ selectedZoneName }}</h3>
-      <p v-if="selectedZoneType" class="zone-popup__type">{{ selectedZoneType }}</p>
-    </div>
+
   </div>
 </template>
 
@@ -65,7 +60,6 @@ import { createOrtoLayer } from '@/lib/wms/ortoLayer'
 import { type Location } from '@/lib/locations'
 import { type Language, getTranslations } from '@/lib/i18n'
 import { createPoiLayer } from '@/lib/poi'
-import { createZonesLayer } from '@/lib/zones'
 import { createGymsLayer } from '@/lib/gyms'
 import { createRoutesLayer } from '@/lib/routes'
 import { createEventPlacesLayer } from '@/lib/eventPlaces'
@@ -94,7 +88,6 @@ const status = ref<'ready' | 'error'>('ready')
 const errorMessage = ref('')
 const locationLoading = ref(false)
 const showPoi = ref(false)
-const showZones = ref(true)
 const showGyms = ref(false)
 const showRoutes = ref(false)
 const showEventPlaces = ref(true)
@@ -102,7 +95,6 @@ const showEventZones = ref(true)
 const showCphSprint = ref(false)
 const useOrtofoto = ref(false)
 const selectedPoi = ref<Feature | null>(null)
-const selectedZone = ref<Feature | null>(null)
 
 const selectedPoiName = computed(() => {
   if (!selectedPoi.value) return ''
@@ -125,23 +117,9 @@ const selectedPoiDescription = computed(() => {
   return description || ''
 })
 
-const selectedZoneName = computed(() => {
-  if (!selectedZone.value) return ''
-  const name = props.language === 'da' 
-    ? selectedZone.value.get('name_da') || selectedZone.value.get('name') || selectedZone.value.get('text')
-    : selectedZone.value.get('name_en') || selectedZone.value.get('name') || selectedZone.value.get('text_en')
-  return name || 'Ukendt'
-})
-
-const selectedZoneType = computed(() => {
-  if (!selectedZone.value) return ''
-  return selectedZone.value.get('type') || ''
-})
-
 let map: Map | null = null
 let userLocationSource: VectorSource | null = null
 let poiLayer: VectorLayer | null = null
-let zonesLayer: VectorLayer | null = null
 let gymsLayer: VectorLayer | null = null
 let routesLayer: VectorLayer | null = null
 let eventPlacesLayer: VectorLayer | null = null
@@ -243,9 +221,7 @@ watch(showPoi, (show) => {
   if (poiLayer) poiLayer.setVisible(show)
 })
 
-watch(showZones, (show) => {
-  if (zonesLayer) zonesLayer.setVisible(show)
-})
+
 
 watch(showGyms, (show) => {
   if (gymsLayer) gymsLayer.setVisible(show)
@@ -312,18 +288,12 @@ const handleMapClick = (event: MouseEvent) => {
   if (routeFeatures.length > 0) {
     ;(routesLayer as any).toggleRouteSelection(routeFeatures[0])
     selectedPoi.value = null
-    selectedZone.value = null
   }
-  // Then POI over zones if both are clicked
+  // Then POI
   else if (poiFeatures.length > 0) {
     selectedPoi.value = poiFeatures[0]
-    selectedZone.value = null
-  } else if (zoneFeatures.length > 0) {
-    selectedZone.value = zoneFeatures[0]
-    selectedPoi.value = null
   } else {
     selectedPoi.value = null
-    selectedZone.value = null
   }
 }
 
@@ -350,14 +320,6 @@ onMounted(async () => {
       poiLayer.setVisible(showPoi.value)
     } catch (error) {
       console.warn('Could not load POI layer:', error)
-    }
-
-    // Load zones layer
-    try {
-      zonesLayer = await createZonesLayer(props.language)
-      zonesLayer.setVisible(showZones.value)
-    } catch (error) {
-      console.warn('Could not load zones layer:', error)
     }
 
     // Load gyms layer
@@ -401,9 +363,6 @@ onMounted(async () => {
     }
 
     const layers = [baseLayerSkaermkort, baseLayerOrto, userLocationLayer]
-    if (zonesLayer) {
-      layers.push(zonesLayer)
-    }
     if (routesLayer) {
       layers.push(routesLayer)
     }
@@ -441,7 +400,7 @@ onMounted(async () => {
     })
 
     // Update POI layer zoom level for label rendering
-    if ((poiLayer || eventPlacesLayer || eventZonesLayer || zonesLayer) && map?.getView()) {
+    if ((poiLayer || eventPlacesLayer || eventZonesLayer) && map?.getView()) {
       const updateLayersZoom = () => {
         const zoom = map?.getView().getZoom()
         if (zoom !== undefined) {
@@ -453,9 +412,6 @@ onMounted(async () => {
           }
           if (eventZonesLayer) {
             ;(eventZonesLayer as any).setCurrentZoom(zoom)
-          }
-          if (zonesLayer) {
-            ;(zonesLayer as any).setCurrentZoom(zoom)
           }
         }
       }
