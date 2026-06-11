@@ -34,7 +34,7 @@
       <button class="poi-popup__close" @click="selectedPoi = null">✕</button>
       <h3 class="poi-popup__title">{{ selectedPoiName }}</h3>
       <p v-if="selectedPoiType" class="poi-popup__type">{{ selectedPoiType }}</p>
-      <p v-if="selectedPoiDescription" class="poi-popup__description">{{ selectedPoiDescription }}</p>
+      <div v-if="selectedPoiDescription" class="poi-popup__description" v-html="selectedPoiDescription"></div>
     </div>
 
   </div>
@@ -114,7 +114,7 @@ const selectedPoiDescription = computed(() => {
   const description = props.language === 'da'
     ? selectedPoi.value.get('beskrivelse')
     : selectedPoi.value.get('description')
-  return description || ''
+  return description || selectedPoi.value.get('zone_info') || ''
 })
 
 let map: Map | null = null
@@ -292,6 +292,10 @@ const handleMapClick = (event: MouseEvent) => {
   // Then POI
   else if (poiFeatures.length > 0) {
     selectedPoi.value = poiFeatures[0]
+  }
+  // Then event zones (only if they have zone_info)
+  else if (zoneFeatures.length > 0 && zoneFeatures[0].get('zone_info')) {
+    selectedPoi.value = zoneFeatures[0]
   } else {
     selectedPoi.value = null
   }
@@ -362,7 +366,7 @@ onMounted(async () => {
       console.warn('Could not load CPH Sprint layer:', error)
     }
 
-    const layers = [baseLayerSkaermkort, baseLayerOrto, userLocationLayer]
+    const layers = [baseLayerSkaermkort, baseLayerOrto]
     if (routesLayer) {
       layers.push(routesLayer)
     }
@@ -381,6 +385,8 @@ onMounted(async () => {
     if (cphSprintLayer) {
       layers.push(cphSprintLayer)
     }
+    // User location is added last so it always renders on top
+    layers.push(userLocationLayer)
 
     map = new Map({
       target: mapEl.value,
