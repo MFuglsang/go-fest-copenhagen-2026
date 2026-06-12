@@ -53,6 +53,15 @@ export const LOCATIONS: Location[] = [
     },
     coordinates: [721930.04, 6174011.71],
     zoom: 10,
+  },
+  {
+    id: 'oestre_amlaeg',
+    name: {
+      da: 'Østre Anlæg',
+      en: 'Østre Anlæg',
+    },
+    coordinates: [725048.5, 6177383.3],
+    zoom: 10,
   }
 
 ]
